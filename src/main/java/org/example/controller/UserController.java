@@ -36,15 +36,15 @@ public class UserController {
         if (userOptional.isPresent()) {
             return new ResponseEntity<>(userOptional.get(), HttpStatus.OK);
         }
-        //var allUsers = userService.getAllUsers();
-        //ResponseEntity.status(HttpStatus.NOT_EXTENDED).body("hghghgh");
+    /*    var allUsers = userService.getAllUsers();
+        ResponseEntity.status(HttpStatus.NOT_EXTENDED).body("hghghgh");
 
-        //return new ResponseEntity<>("User with id " +
-            //userId + " does not exist", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("User with id " +
+            userId + " does not exist", HttpStatus.NOT_FOUND);
 
-        //ErrorMessage errorMessage = new ErrorMessage("User with id " + userId + " does not exist",
-                    //HttpStatus.NOT_FOUND);
-        // return new ResponseEntity<>(errorMessage, errorMessage.getHttpStatus());
+        ErrorMessage errorMessage = new ErrorMessage("User with id " + userId + " does not exist",
+                    HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorMessage, errorMessage.getHttpStatus());*/
 
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with id " + userId + " does not exist");
     }

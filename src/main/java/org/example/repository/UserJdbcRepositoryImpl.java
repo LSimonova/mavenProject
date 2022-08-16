@@ -38,20 +38,20 @@ public class UserJdbcRepositoryImpl implements UserJdbcRepository {
     public User save(User user) {
        String SQL = "INSERT INTO USERS (FIRST_NAME, LAST_NAME, EMAIL, PASSWORD)" + "VALUES (?,?,?,?)";
 
-        //KeyHolder keyHolder = new GeneratedKeyHolder();
+       /* KeyHolder keyHolder = new GeneratedKeyHolder();
 
-       // jdbcTemplate.update(con -> {
-           // PreparedStatement statement = con.prepareStatement(SQL, new String[] {"id"});
-           // statement.setString(1, user.getFirstName());
-           // statement.setString(2, user.getLastName());
-           // statement.setString(3, user.getEmail());
-           // statement.setString(4, user.getPassword());
-           // return statement;
-        //}, keyHolder);
+        jdbcTemplate.update(con -> {
+            PreparedStatement statement = con.prepareStatement(SQL, new String[] {"id"});
+            statement.setString(1, user.getFirstName());
+            statement.setString(2, user.getLastName());
+            statement.setString(3, user.getEmail());
+            statement.setString(4, user.getPassword());
+            return statement;
+        }, keyHolder);
 
-       // user.setId((Long) keyHolder.getKey());
-      //  return user;
-
+        user.setId((Long) keyHolder.getKey());
+        return user;
+*/
         SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate).withTableName("USERS").usingGeneratedKeyColumns("id");
         user.setId(simpleJdbcInsert.executeAndReturnKey(user.toMap()).longValue());
         return user;

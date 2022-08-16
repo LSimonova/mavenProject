@@ -21,29 +21,28 @@ public class Article {
 
     private enum status {};
 
-    @Column(name = "AUTHOR_ID")
-    private Long authorId;
+    //@Column(name = "AUTHOR_ID")
+    //private Long authorId;
 
     @Column(name = "CREATED_AT")
     private LocalDateTime createdAt;
 
-    @Column(name = "UPDATED_AT")
-    private LocalDateTime updatedAt;
+    @ManyToOne
+    @JoinColumn(name = "AUTHOR_ID")
+    private User author;
 
     public Article() {
     }
 
     public Article(String title,
                    String text,
-                   Long authorId,
-                   LocalDateTime createdAt,
-                   LocalDateTime updatedAt) {
+                  // Long authorId,
+                   LocalDateTime createdAt) {
 
         this.title = title;
         this.text = text;
-        this.authorId = authorId;
+        //this.authorId = authorId;
         this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
 
     public Long getId() {
@@ -70,13 +69,13 @@ public class Article {
         this.text = text;
     }
 
-    public Long getAuthorId() {
-        return authorId;
-    }
+    //public Long getAuthorId() {
+        //return authorId;
+    //}
 
-    public void setAuthorId(Long authorId) {
-        this.authorId = authorId;
-    }
+    //public void setAuthorId(Long authorId) {
+       // this.authorId = authorId;
+    //}
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
@@ -86,12 +85,11 @@ public class Article {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setAuthor(User author) {
+        this.author = author;
     }
-
 }
