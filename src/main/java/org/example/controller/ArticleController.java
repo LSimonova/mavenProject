@@ -47,7 +47,7 @@ public class ArticleController {
     }*/
 
     @PostMapping("/users/{userId}/articles")
-    public ResponseEntity<Article> saveArticle(@PathVariable (value = "userId") Long userId,
+    public ResponseEntity<Article> saveArticle(@PathVariable(value = "userId") Long userId,
                                                @RequestBody Article article) {
         Article article1 = userService.getUserById(userId).map(author -> {
             article.setAuthor(author);

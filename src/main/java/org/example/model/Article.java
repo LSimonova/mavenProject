@@ -19,11 +19,6 @@ public class Article {
     @Column(name = "TEXT")
     private String text;
 
-    private enum status {};
-
-    //@Column(name = "AUTHOR_ID")
-    //private Long authorId;
-
     @Column(name = "CREATED_AT")
     private LocalDateTime createdAt;
 
@@ -36,12 +31,10 @@ public class Article {
 
     public Article(String title,
                    String text,
-                  // Long authorId,
                    LocalDateTime createdAt) {
 
         this.title = title;
         this.text = text;
-        //this.authorId = authorId;
         this.createdAt = createdAt;
     }
 
@@ -68,14 +61,6 @@ public class Article {
     public void setText(String text) {
         this.text = text;
     }
-
-    //public Long getAuthorId() {
-        //return authorId;
-    //}
-
-    //public void setAuthorId(Long authorId) {
-       // this.authorId = authorId;
-    //}
 
     public LocalDateTime getCreatedAt() {
         return createdAt;

@@ -25,19 +25,18 @@ public class UserService {
 
 
     public List<User> getAllUsers() {
-       //return userJdbcRepository.findAllUsers();
+        //return userJdbcRepository.findAllUsers();
         return userRepository.findAll();
     }
 
-    //public User getUserById(Long userId) {
-        //return userRepository.findById(userId).orElseThrow(() ->
-               //new IllegalStateException("User with id " + userId + " does not exist!"));
-   // }
+    /* public User getUserById(Long userId) {
+        return userRepository.findById(userId).orElseThrow(() ->
+                new IllegalStateException("User with id " + userId + " does not exist!"));
+    } */
 
-    //public Optional<User> getUserById(Long userId) {
-        //return userJdbcRepository.findUserById(userId);
-
-    //}
+    /* public Optional<User> getUserById(Long userId) {
+        return userJdbcRepository.findUserById(userId);
+    } */
 
     public Optional<User> getUserById(Long userId) {
         return userRepository.findById(userId);
@@ -49,15 +48,15 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    //public void deleteUserById(Long userId) {
-        //userJdbcRepository.deleteUserById(userId);
-    //}
+    /* public void deleteUserById(Long userId) {
+        userJdbcRepository.deleteUserById(userId);
+    } */
 
     public void deleteUserById(Long userId) {
         boolean isExist = userRepository.existsById(userId);
         if (!isExist) {
             throw new NotFoundException("User with id " + userId + " does not exist!");
-       }
+        }
         userRepository.deleteById(userId);
     }
 }

@@ -31,14 +31,19 @@ public class User {
     @Column(name = "CREATED_AT")
     private LocalDateTime createdAt;
 
-   @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Article> articles = new ArrayList<>();
 
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String password, String email, LocalDateTime createdAt, List<Article> articles) {
+    public User(String firstName,
+                String lastName,
+                String password,
+                String email,
+                LocalDateTime createdAt,
+                List<Article> articles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
@@ -46,19 +51,6 @@ public class User {
         this.createdAt = createdAt;
         this.articles = articles;
     }
-
-    /*public User(String firstName,
-                String lastName,
-                String password,
-                String email,
-                LocalDateTime createdAt) {
-
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.email = email;
-        this.createdAt = createdAt;
-    }*/
 
     public Long getId() {
         return id;

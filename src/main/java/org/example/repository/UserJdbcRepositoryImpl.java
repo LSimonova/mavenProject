@@ -8,6 +8,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -36,12 +38,20 @@ public class UserJdbcRepositoryImpl implements UserJdbcRepository {
 
     @Override
     public User save(User user) {
-       String SQL = "INSERT INTO USERS (FIRST_NAME, LAST_NAME, EMAIL, PASSWORD)" + "VALUES (?,?,?,?)";
+        String SQL = "INSERT INTO USERS (FIRST_NAME, LAST_NAME, EMAIL, PASSWORD)" + "VALUES (?,?,?,?)";
 
-       /* KeyHolder keyHolder = new GeneratedKeyHolder();
+        SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate).withTableName("USERS").usingGeneratedKeyColumns("id");
+        user.setId(simpleJdbcInsert.executeAndReturnKey(user.toMap()).longValue());
+        return user;
+    }
+
+    private User saveWithPreparedStatement(User user) {
+        String SQL = "INSERT INTO USERS (FIRST_NAME, LAST_NAME, EMAIL, PASSWORD)" + "VALUES (?,?,?,?)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(con -> {
-            PreparedStatement statement = con.prepareStatement(SQL, new String[] {"id"});
+            PreparedStatement statement = con.prepareStatement(SQL, new String[]{"id"});
             statement.setString(1, user.getFirstName());
             statement.setString(2, user.getLastName());
             statement.setString(3, user.getEmail());
@@ -50,10 +60,6 @@ public class UserJdbcRepositoryImpl implements UserJdbcRepository {
         }, keyHolder);
 
         user.setId((Long) keyHolder.getKey());
-        return user;
-*/
-        SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate).withTableName("USERS").usingGeneratedKeyColumns("id");
-        user.setId(simpleJdbcInsert.executeAndReturnKey(user.toMap()).longValue());
         return user;
     }
 
@@ -65,9 +71,8 @@ public class UserJdbcRepositoryImpl implements UserJdbcRepository {
         } catch (EmptyResultDataAccessException e) {
             e.printStackTrace();
         }
-            return Optional.empty();
+        return Optional.empty();
     }
-
 
     @Override
     public List<User> findAllUsers() {
