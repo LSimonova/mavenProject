@@ -2,7 +2,9 @@ package org.example.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -29,10 +31,23 @@ public class User {
     @Column(name = "CREATED_AT")
     private LocalDateTime createdAt;
 
+   @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Article> articles = new ArrayList<>();
+
+
     public User() {
     }
 
-    public User(String firstName,
+    public User(String firstName, String lastName, String password, String email, LocalDateTime createdAt, List<Article> articles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.createdAt = createdAt;
+        this.articles = articles;
+    }
+
+    /*public User(String firstName,
                 String lastName,
                 String password,
                 String email,
@@ -43,7 +58,7 @@ public class User {
         this.password = password;
         this.email = email;
         this.createdAt = createdAt;
-    }
+    }*/
 
     public Long getId() {
         return id;
@@ -91,6 +106,14 @@ public class User {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
     }
 
     public Map<String, Object> toMap() {
